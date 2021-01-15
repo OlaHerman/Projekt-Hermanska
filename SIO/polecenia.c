@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <curl/curl.h>
-#include "../cJSON/cJSON.h"
+#include "../../1DM1103_20Z/cJSON/cJSON.h"
 
 #include "polecenia.h"
 #include "mapa.h"
@@ -39,7 +39,6 @@ char * make_request(char *url)
             fprintf(fin,"%s\n", chunk.response);
             fclose(fin);
         }
-
         free(chunk.response);
         curl_easy_cleanup(curl);
     }
