@@ -46,14 +46,14 @@ char * make_request(char *url)
         curl_easy_setopt(curl, CURLOPT_URL, url);
         curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1L);
         //curl_easy_setopt(curl, CURLOPT_HEADER, 1L);
-
+        
         curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_callback);
 
         curl_easy_setopt(curl, CURLOPT_WRITEDATA, (void *)&chunk);
 
         res = curl_easy_perform(curl);
         
-
+        
         if (res != CURLE_OK)
             fprintf(stderr, "Błąd! curl_easy_perform() niepowodzenie: %s\n", curl_easy_strerror(res));
         else

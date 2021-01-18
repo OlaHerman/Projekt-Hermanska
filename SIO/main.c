@@ -27,6 +27,7 @@ int main(int argc, char **argv)
   
   P = stworz(M);
   wypisz(P);
+  zapisz(P, mapa);
 
     for (int i=1;i<argc;i++)
     {
@@ -39,13 +40,12 @@ int main(int argc, char **argv)
 
         //printf("%d %d %s %s %s %s %d %s %s\n", M->current_x, M->current_y, M->status, M->name, M->current_session, M->direction, M->step, M->field_type, M->field_bonus);
 
-        
         wypisz(P);
       }
 
       if(strcmp(argv[i], "R") == 0)
       {
-        printf("Komenda: Obrót w prawo.\n");
+        printf("Command: Turn right.\n");
         right(a);
         f = fopen(a, "r"); 
         fread(buffer,1,2048,f);
@@ -61,8 +61,9 @@ int main(int argc, char **argv)
 
       if(strcmp(argv[i], "L") == 0)
       {
-        printf("Komenda: Obrót w lewo.\n");
+        printf("Command: Turn left.\n");
         left(a);
+
         f = fopen(a, "r"); 
         fread(buffer,1,2048,f);
         fclose(f);

@@ -39,7 +39,7 @@ typedef struct _Mapa_explore
 
 typedef struct _Pole
 {
-    char index[N][N];
+    char **index;
     int delta_x;
     int delta_y;
     int current_x;
@@ -52,11 +52,16 @@ typedef struct _Pole
 } Pole;
 
 void zapisz(Pole *P, char *file);
+Pole *wczytaj_mape(char *file);
 Pole *stworz(Mapa *M);
+Pole * powieksz(Pole *P, char *direction);
 Pole * update_direction(Pole *P, Mapa *M);
+Pole *update_move(Pole *P, Mapa *M);
 void wypisz(Pole *P);
 Mapa * wczytaj_json(Mapa *M, const char *const dane);
 Mapa_explore *wczytaj_json_explore(Mapa_explore *M, const char *const dane);
+void zwolnij_mape(Mapa *M);
+void zwolnij_pole(Pole *P);
 
 
 
