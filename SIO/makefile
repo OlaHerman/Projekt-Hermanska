@@ -23,7 +23,7 @@ test-powiekszW: all-mapa
 	./mapa R L
 
 test-SIOv1.0: all-mapa
-	./mapa M R E M E M E M E L M M M M L M M M M M M M L M E R M R M L M E L M M M M M L M M M M M M R M L L
+	./mapa M R E M E M E M E L M M M M L M M M M M M M L M E R M E R M E L M E L M M M M M L M M M M M M R M M R M M M M M M E L M L M M E L M R M M R M E L M M M E L M R M M R M E R R M L M M M R M
 
 test: all
 	./projekt
