@@ -13,11 +13,17 @@ test-kolo: all-mapa
 test-sciana: all-mapa
 	./mapa R M L
 
-test-powieksz: all-mapa
+test-powiekszE: all-mapa
 	./mapa L M M R M R M M L
 
 test-powiekszN: all-mapa
 	./mapa L L M M M L L M M M
+
+test-powiekszW: all-mapa
+	./mapa R L
+
+test-SIOv1.0: all-mapa
+	./mapa M R E M E M E M E L M M M M L M M M M M M M L M E R M R M L M E L M M M M M L M M M M M M R M L L
 
 test: all
 	./projekt

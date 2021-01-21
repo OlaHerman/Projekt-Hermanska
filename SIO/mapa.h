@@ -55,6 +55,10 @@ void zapisz(Pole *P, char *file);
 Pole *wczytaj_mape(char *file);
 Pole *stworz(Mapa *M);
 Pole * powieksz(Pole *P);
+Pole *powieksz_E(Pole *P);
+Pole *powieksz_N(Pole *P);
+Pole *powieksz_W(Pole *P);
+Pole *powieksz_S(Pole *P);
 int check_border(Pole *P);
 Pole * update_direction(Pole *P, Mapa *M);
 Pole *update_move(Pole *P, Mapa *M);
@@ -63,6 +67,7 @@ void wypisz(Pole *P);
 Mapa * wczytaj_json(Mapa *M, const char *const dane);
 Mapa_explore *wczytaj_json_explore(Mapa_explore *M, const char *const dane);
 void zwolnij_mape(Mapa *M);
+void zwolnij_mape_explore(Mapa_explore *ME);
 void zwolnij_pole(Pole *P);
 
 

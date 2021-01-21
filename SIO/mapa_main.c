@@ -25,6 +25,7 @@ int main(char argc, char **argv){
   fclose(f);
   M = wczytaj_json(M, buffer);
   P = stworz(M);
+  zwolnij_mape(M);
   wypisz(P);
 /*
   explore(a);
@@ -62,6 +63,7 @@ int main(char argc, char **argv){
       fclose(f);
       M = wczytaj_json(M, buffer);
       P = update_direction(P, M);
+      zwolnij_mape(M);
       wypisz(P);
     }
     else if(strcmp(argv[i], "M") == 0){
@@ -71,6 +73,7 @@ int main(char argc, char **argv){
       fclose(f);
       M = wczytaj_json(M, buffer);
       P = update_move(P, M);
+      zwolnij_mape(M);
       wypisz(P);  
     }
     else if(strcmp(argv[i], "E") == 0){
@@ -79,17 +82,14 @@ int main(char argc, char **argv){
       fread(buffer,1,2048,f);
       fclose(f);
       ME = wczytaj_json_explore(ME, buffer);
-
       P = update_explore(P, ME);
+      zwolnij_mape_explore(ME);
       wypisz(P); 
     }
     if(check_border(P) == 1)
       P = powieksz(P);
   }
-  /*P = powieksz(P);
-  wypisz(P);
-  P = powieksz(P);
-  wypisz(P);*/
   zapisz(P , mapa);  
+  zwolnij_pole(P);
   return 0;
 }

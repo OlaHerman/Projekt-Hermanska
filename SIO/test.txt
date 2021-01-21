@@ -1,7 +1,22 @@
-5 10
-S
+20 10
+W
 v v v v v v v v v v 
 v v v v v v v v v v 
-v v G g g v v v v v 
-v v v v w v v v v v 
+v v v v v v v v v v 
+v v v v v w w w v v 
+v v w g g g g w v v 
+v v v g v w g w v v 
+v v v g v w g w v v 
+v v v g v v g G v v 
+v v v g v v g v v v 
+v v v g v v g v v v 
+v v v g v w g v v v 
+v v v g s w g v v v 
+v v v g s g g v v v 
+v v v g g g g w v v 
+v v w w w v v v v v 
+v v v v v v v v v v 
+v v v v v v v v v v 
+v v v v v v v v v v 
+v v v v v v v v v v 
 v v v v v v v v v v 
