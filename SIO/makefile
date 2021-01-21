@@ -7,6 +7,18 @@ all-mapa:
 test-mapa: all-mapa	
 	./mapa
 
+test-kolo: all-mapa	
+	./mapa L M E L M E L M E L M E
+
+test-sciana: all-mapa
+	./mapa R M L
+
+test-powieksz: all-mapa
+	./mapa L M M R M R M M L
+
+test-powiekszN: all-mapa
+	./mapa L L M M M L L M M M
+
 test: all
 	./projekt
 
@@ -22,5 +34,5 @@ test-left: all
 test-right: all
 	./projekt R
 
-test-explore: all
-	./projekt explore
+test-explore: all-mapa
+	./mapa

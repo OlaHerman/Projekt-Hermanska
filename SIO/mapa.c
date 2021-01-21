@@ -22,7 +22,6 @@ S - piasek zajęty przez czołg
 Pole *stworz(Mapa *M)
 {
     int i,j;
-    char *s;
     Pole *nowe;
     nowe = (Pole*) malloc(sizeof(Pole));
     nowe->index = (char**) malloc(sizeof(char*) * N);
@@ -58,52 +57,65 @@ Pole *stworz(Mapa *M)
     return nowe;
 }
 
-Pole * powieksz(Pole *P, char *direction){
-    int i,j;
+Pole * powieksz(Pole *P){
+    int i,j, size_x, size_y;
     Pole *nowe;
     nowe = (Pole*) malloc(sizeof(Pole));
+    size_x = P->rozmiar_x;
+    size_y = P->rozmiar_y;
 
-    if(strcmp(direction, "W")==0){
-        nowe->rozmiar_x = 2*P->rozmiar_x;
-        nowe->rozmiar_y = P->rozmiar_y;
-        nowe->delta_x = P->delta_x - P->rozmiar_x;
+    if(strcmp(P->direction, "W")==0){
+        nowe->rozmiar_x = 2*size_x;
+        nowe->rozmiar_y = size_y;
+        nowe->delta_x = P->delta_x - size_x;
         nowe->delta_y = P->delta_y;
     }
-    else if(strcmp(direction, "E")==0){
-        nowe->rozmiar_x = 2*P->rozmiar_x;
-        nowe->rozmiar_y = P->rozmiar_y;
+    else if(strcmp(P->direction, "E")==0){
+        nowe->rozmiar_x = 2*size_x;
+        nowe->rozmiar_y = size_y;
 
         printf("%d x %d\n", nowe->rozmiar_x, nowe->rozmiar_y);
 
         nowe->delta_x = P->delta_x;
         nowe->delta_y = P->delta_y;
     }
-    else if(strcmp(direction, "N")==0){
-        nowe->rozmiar_x = P->rozmiar_x;
-        nowe->rozmiar_y = 2*P->rozmiar_y;
+    else if(strcmp(P->direction, "N")==0){
+        nowe->rozmiar_x = size_x;
+        nowe->rozmiar_y = 2*size_y;
 
         printf("%d x %d\n", nowe->rozmiar_x, nowe->rozmiar_y);
 
         nowe->delta_x = P->delta_x;
         nowe->delta_y = P->delta_y;
     }
-    else if(strcmp(direction, "S")==0){
-        nowe->rozmiar_x = P->rozmiar_x;
-        nowe->rozmiar_y = 2*P->rozmiar_y;
+    else if(strcmp(P->direction, "S")==0){
+        nowe->rozmiar_x = size_x;
+        nowe->rozmiar_y = 2*size_y;
         nowe->delta_x = P->delta_x;
-        nowe->delta_y = P->delta_y - P->rozmiar_y;
+        nowe->delta_y = P->delta_y - size_y;
     }
 
     nowe->index = (char**) malloc(sizeof(char*) * nowe->rozmiar_y);
         for(i=0;i<nowe->rozmiar_y;i++)
         nowe->index[i] = (char*) malloc(sizeof(char) * nowe->rozmiar_x);
 
+    printf("Rozpoczynam proces powiększania tego pola w stronę %s:\n", P->direction);
+    wypisz(P);
+
+
     for(i=0;i<nowe->rozmiar_y;i++){
         for(j=0;j<nowe->rozmiar_x;j++){
-            //if(P->index[i][j] == NULL)
+            if(P->index[i][j]=='G'||P->index[i][j]=='S'||P->index[i][j]=='s'||P->index[i][j]=='g'||P->index[i][j]=='v'||P->index[i][j]=='w'){    
+                nowe->index[i][j] = P->index[i][j];
+                //printf("Rozpoczynam pętlę starych pól dla X:%d Y:%d\n", j, i);
+                printf("Przeskanowano pole x:%d y:%d Rodzaj: %c\n", j, i, P->index[i][j]);
+                
+            }
+            else if(i >= size_y||j >= size_x){
+                //printf("Rozpoczynam pętlę nowychs pól dla X:%d Y:%d\n", j, i);
                 nowe->index[i][j] = 'v';
-            //else 
-                //nowe->index[i][j] = P->index[i][j];
+                printf("Wypełniam puste pole: x:%d y:%d - %c\n", j, i, nowe->index[i][j]);
+            }
         }
     }
     nowe->current_x = P->current_x;
@@ -112,10 +124,20 @@ Pole * powieksz(Pole *P, char *direction){
     nowe->field_type = P->field_type;
     nowe->field_bonus = P->field_bonus;
 
+    printf("Mapa powiększona pomyślnie\n");
+
     return nowe;
 }
 
-Pole * update_direction(Pole *P, Mapa *M)
+
+int check_border(Pole *P){
+    if(P->current_x == P->rozmiar_x -1 ||P->current_x == 0||P->current_y == P->rozmiar_y -1||P->current_y == 0)//Trzeba powiekszyć w stronę P->direction
+        return 1;
+    else 
+        return 0;
+}
+
+Pole *update_direction(Pole *P, Mapa *M)
 {
     Pole *nowe;
     nowe = P;
@@ -125,37 +147,93 @@ Pole * update_direction(Pole *P, Mapa *M)
 }
 
 Pole *update_move(Pole *P, Mapa *M){
-    int X, Y, x, y;
+    int X, Y, x, y, p;
+    char *new_field = M->field_type;
+    char *old_field = P->field_type;
+
     Pole *nowe;
     nowe = P;
-    printf("Poprzednie pole: x:%d y:%d\n", P->current_x, P->current_y);
-    printf("Nowe pole: x:%d y:%d\n", M->current_x - P->delta_x, M->current_y - P->delta_y);
+    
     X = M->current_x - P->delta_x;
     Y = M->current_y - P->delta_y;
     x = P->current_x;
     y = P->current_y;
+    printf("Poprzednie pole: x:%d y:%d to %s\n", x, y, old_field);
+    printf("Nowe pole: x:%d y:%d to %s\n", X, Y, new_field);
 
-    printf("%d %d %d %d\n", X, Y, x, y);
+    if(X == x & Y == y){//Tank move failed
+        printf("Czołg przywalił w ścianę\n");
+        if(strcmp(nowe->direction, "N")==0){
+            nowe->index[Y+1][X] = 'w';
+        }
+        else if(strcmp(nowe->direction, "E")==0){
+            nowe->index[Y][X+1] = 'w';
+        }
+        else if(strcmp(nowe->direction, "S")==0){
+            nowe->index[Y-1][X] = 'w';
+        }
+        else if(strcmp(nowe->direction, "W")==0){
+            nowe->index[Y][X-1] = 'w';
+        }
+    }
 
-    if(strcmp(M->field_type, "grass") == 0)
-        nowe->index[X][Y] = 'G';
-    else if(strcmp(M->field_type, "sand") == 0)
-        nowe->index[X][Y] = 'S';
-    if(strcmp(P->field_type, "grass") == 0)
-        nowe->index[x][y] = 'g';
-    else if(strcmp(P->field_type, "sand") == 0)
-        nowe->index[x][y] = 's';
+    else if(X != x || Y != y){//Tank move successful
+        nowe->current_y = Y;
+        nowe->current_x = X;
+        nowe->field_type = new_field;
 
+        if(strcmp(new_field, "grass") == 0){
+            nowe->index[Y][X] = 'G';
+            printf("Pole x:%d y:%d to teraz G\n", X, Y);
+            nowe->field_type = new_field;
+        }
+        else if(strcmp(new_field, "sand") == 0){
+            nowe->index[Y][X] = 'S';
+            printf("Pole x:%d y:%d to teraz S\n", X, Y);
+            nowe->field_type = new_field;
+        }
+        if(strcmp(old_field, "grass") == 0){
+            nowe->index[y][x] = 'g';
+            printf("Pole x:%d y:%d zamioniono z G na g\n", x, y);
+        }
+        else if(strcmp(old_field, "sand") == 0){
+            nowe->index[y][x] = 's';
+            printf("Pole x:%d y:%d zamioniono z S na s\n", x, y);
+        }
+    }
+    return nowe;
+}
+
+Pole *update_explore(Pole *P, Mapa_explore *ME){
+    int i,j, x, y;
+    char *field_type;
+    Pole *nowe;
+    nowe = P;
+    for(i=0;i<3;i++){
+        strcpy(field_type, ME->type[i]);
+        
+        x = ME->x[i] - P->delta_x;
+        y = ME->y[i] - P->delta_y;
+        printf("%d pole przede mną to x:%d y:%d typ: %s\n",i+1, x, y, ME->type[i]);
+        if(strcmp(field_type, "grass") == 0)
+            nowe->index[y][x] = 'g';
+        else if(strcmp(field_type, "sand") == 0)
+            nowe->index[y][x] = 's';
+        else if(strcmp(field_type, "wall") == 0)
+            nowe->index[y][x] = 'w';
+    }
     return nowe;
 }
 
 
 void wypisz(Pole *P)
 {
-    for(int i=0;i<P->rozmiar_y;i++)
+    int i,j,Y;
+    for(i=0;i<P->rozmiar_y;i++)
     {
-        for(int j = 0;j<P->rozmiar_x;j++)
-            printf("%c  ", P->index[i][j]);
+        Y = P->rozmiar_y-i-1;
+        for(j = 0;j<P->rozmiar_x;j++)
+            printf("%c  ", P->index[Y][j]);
     printf("\n\n");
     }
     if(strcmp(P->direction, "S") == 0)
@@ -172,12 +250,13 @@ void wypisz(Pole *P)
 void zapisz(Pole *P, char *file)
 {
     FILE * fin = fopen(file, "w");
-
+    int i,j,Y;
     fprintf(fin,"%d %d\n", P->rozmiar_y, P->rozmiar_x);
     fprintf(fin, "%s\n", P->direction);
-    for(int i=0; i<P->rozmiar_y; i++){
-        for(int j=0;j<P->rozmiar_x;j++){
-        fprintf(fin, "%c ",P->index[i][j]);
+    for(i=0; i<P->rozmiar_y; i++){
+        Y = P->rozmiar_y-i-1;
+        for(j=0;j<P->rozmiar_x;j++){
+        fprintf(fin, "%c ",P->index[Y][j]);
         }
     fprintf(fin, "\n");
     }
@@ -185,7 +264,7 @@ void zapisz(Pole *P, char *file)
     printf("Map saved.\n");
 }
 
-Pole *wczytaj_mape(char *file){
+/*Pole *wczytaj_mape(char *file){
     FILE *fin = fopen(file, "r");
 
     if (fin == NULL) {
@@ -239,7 +318,7 @@ Pole *wczytaj_mape(char *file){
     printf("lol\n");
     
     return wczytane;
-}
+}*/
 
 Mapa * wczytaj_json(Mapa *M, const char *const dane)
 {
@@ -297,15 +376,16 @@ Mapa_explore *wczytaj_json_explore(Mapa_explore *M, const char *const dane)
 {
     Mapa_explore *nowa = NULL;
     nowa = (Mapa_explore*) malloc(sizeof(Mapa_explore));
-    int i =0;
+    int i = 0;
     const cJSON *lol = NULL;
     const cJSON *status =NULL;
     const cJSON *payload =NULL;
     const cJSON *list =NULL;
     
     cJSON *dane_cjson = cJSON_Parse(dane);
-
+    
     status = cJSON_GetObjectItemCaseSensitive(dane_cjson, "status");
+    nowa->status = (char*) malloc(sizeof(char) * strlen((status->valuestring)+1));
     nowa->status = status->valuestring;
 
     payload = cJSON_GetObjectItemCaseSensitive(dane_cjson, "payload");

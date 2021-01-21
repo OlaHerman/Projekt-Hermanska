@@ -1,0 +1,7 @@
+5 5
+S
+v v v v v 
+v v v v v 
+v v G v v 
+v v v v v 
+v v v v v 

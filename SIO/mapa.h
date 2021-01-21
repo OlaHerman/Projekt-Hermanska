@@ -54,9 +54,11 @@ typedef struct _Pole
 void zapisz(Pole *P, char *file);
 Pole *wczytaj_mape(char *file);
 Pole *stworz(Mapa *M);
-Pole * powieksz(Pole *P, char *direction);
+Pole * powieksz(Pole *P);
+int check_border(Pole *P);
 Pole * update_direction(Pole *P, Mapa *M);
 Pole *update_move(Pole *P, Mapa *M);
+Pole *update_explore(Pole *P, Mapa_explore *ME);
 void wypisz(Pole *P);
 Mapa * wczytaj_json(Mapa *M, const char *const dane);
 Mapa_explore *wczytaj_json_explore(Mapa_explore *M, const char *const dane);
