@@ -1,4 +1,4 @@
-# Projekt-Hermanska
+# Projekt-SIO
 Projekt na seminarium z podstaw programowania
 
 SIO - Symulator Inteligentnego Odkurzacza 
