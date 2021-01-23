@@ -19,10 +19,10 @@ Skompilowany program możemy używać manualnie lub sprawić, żeby działał au
 
 Jeśli chcemy używać go manualnie, w konsoli musimy wpisać "./projekt" i po spacji wypisywać komendy, które program ma wykonać.
 Dostępne komendy:
-M - move - sprawia, że czołg rusza się do przodu
-L - left - obraca czołg w lewo
-R - right - obraca czołg w prawo
-E - explore - odkrywa 3 pola w prostopadłej linii do kierunku czołgu
+M - move - sprawia, że czołg rusza się do przodu,
+L - left - obraca czołg w lewo,
+R - right - obraca czołg w prawo,
+E - explore - odkrywa 3 pola w prostopadłej linii do kierunku czołgu.
 
 Aby uruchomić algorytm, który sam będzie odkrywał mapę należy wpisać "./projekt SIOv2.0"
 
