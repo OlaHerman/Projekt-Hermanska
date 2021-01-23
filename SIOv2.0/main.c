@@ -17,7 +17,7 @@ int main(char argc, char **argv)
   Pole *P;
 
   int i;
-  char *mapa = "test.txt";
+  char *mapa = "mapa.txt";
   char buffer[2048];
   char *a = "qwerty_7.json";
 

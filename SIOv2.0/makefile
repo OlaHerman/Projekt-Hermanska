@@ -10,7 +10,7 @@ all-SIO:
 test-SIOv2.0: all
 	./projekt SIOv2.0
 
-test-mapa: all	
+test: all	
 	./projekt
 
 test-kolo: all	
@@ -24,9 +24,6 @@ test-powiekszE: all
 
 test-powiekszN: all
 	./projekt L L M M M L L M M M
-
-test: all
-	./projekt
 
 test-memory: all
 	valgrind ./projekt L
