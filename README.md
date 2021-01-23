@@ -24,7 +24,7 @@ L - left - obraca czołg w lewo,
 R - right - obraca czołg w prawo,
 E - explore - odkrywa 3 pola w prostopadłej linii do kierunku czołgu.
 
-Aby uruchomić algorytm, który sam będzie odkrywał mapę należy wpisać "./projekt SIOv2.0"
+Aby uruchomić algorytm, który sam będzie odkrywał mapę należy wpisać "./projekt SIOv2.0" lub "make test-SIOv2.0".
 
 
 
