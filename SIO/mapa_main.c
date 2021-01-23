@@ -6,6 +6,7 @@
 
 #include "mapa.h"
 #include "polecenia.h"
+#include "logika.h"
 
 
 int main(char argc, char **argv){
@@ -27,25 +28,7 @@ int main(char argc, char **argv){
   P = stworz(M);
   zwolnij_mape(M);
   wypisz(P);
-/*
-  explore(a);
-  f = fopen(a, "r"); 
-  fread(buffer,1,2048,f);
-  fclose(f);
-  ME = wczytaj_json_explore(ME, buffer);
-  P = update_explore(P, ME);
-  //printf("%d %d %s\n", ME->x[0], ME->y[0], ME->type[0]);
-  wypisz(P);
-
-  return 0;
-*/
-  // printf("%d %d\n", P->delta_x, P->delta_y);
-  // for(i=0;i<1;i++){
-  // P = powieksz(P);
-  // wypisz(P);
-  // }
-  // return 0;
-
+  
   for(i=0;i<argc;i++){
     if(strcmp(argv[i], "L") == 0){
       left(a);
@@ -54,7 +37,8 @@ int main(char argc, char **argv){
       fclose(f);
       M = wczytaj_json(M, buffer);
       P = update_direction(P, M);
-      wypisz(P);
+      zwolnij_mape(M);
+      //wypisz(P);
     }
     else if(strcmp(argv[i], "R") == 0){
       right(a);
@@ -64,7 +48,7 @@ int main(char argc, char **argv){
       M = wczytaj_json(M, buffer);
       P = update_direction(P, M);
       zwolnij_mape(M);
-      wypisz(P);
+      //wypisz(P);
     }
     else if(strcmp(argv[i], "M") == 0){
       move(a);
@@ -74,7 +58,7 @@ int main(char argc, char **argv){
       M = wczytaj_json(M, buffer);
       P = update_move(P, M);
       zwolnij_mape(M);
-      wypisz(P);  
+      //wypisz(P);  
     }
     else if(strcmp(argv[i], "E") == 0){
       explore(a);
@@ -84,11 +68,16 @@ int main(char argc, char **argv){
       ME = wczytaj_json_explore(ME, buffer);
       P = update_explore(P, ME);
       zwolnij_mape_explore(ME);
-      wypisz(P); 
+      //wypisz(P); 
+    }
+    else if(strcmp(argv[i], "SIOv2.0") == 0){
+      P = SIOv2_0(P, a, M, buffer);
     }
     if(check_border(P) == 1)
       P = powieksz(P);
+    
   }
+  wypisz(P);
   zapisz(P , mapa);  
   zwolnij_pole(P);
   return 0;

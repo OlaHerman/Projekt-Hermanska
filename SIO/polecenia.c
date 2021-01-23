@@ -6,6 +6,7 @@
 
 #include "polecenia.h"
 #include "mapa.h"
+#include "logika.h"
 
 static size_t write_callback(void *data, size_t size, size_t nmemb, void *userp)
 {
@@ -63,7 +64,7 @@ char * make_request(char *url)
             fprintf(stderr, "Błąd! curl_easy_perform() niepowodzenie: %s\n", curl_easy_strerror(res));
         else
         {
-            printf("%s", chunk.response);
+            //printf("%s", chunk.response);
 
             FILE *fin = fopen("qwerty_7.json", "w");
             fprintf(fin,"%s\n", chunk.response);

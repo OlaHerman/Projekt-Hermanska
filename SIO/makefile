@@ -2,7 +2,13 @@ all:
 	cc main.c polecenia.c mapa.c logika.c odpowiedz.c -lcurl -o projekt ../../cJSON/cjson.o
 
 all-mapa:
-	cc mapa_main.c polecenia.c mapa.c -lcurl -o mapa ../../cJSON/cjson.o
+	cc mapa_main.c polecenia.c mapa.c logika.c -lcurl -o mapa ../../cJSON/cjson.o
+
+all-SIO:
+	cc mapa_main.c polecenia.c mapa.c logika.c -lcurl -o sio1 ../../cJSON/cjson.o
+
+test-SIOv2.0: all-SIO
+	./sio1 SIOv2.0
 
 test-mapa: all-mapa	
 	./mapa

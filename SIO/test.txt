@@ -1,22 +1,22 @@
 20 20
-W
-v v v v v v v v v v v v v v v v v v v v 
-v v v v v v v v v v v v v v v v v v v v 
-v v v v v v v v v v v v v v v v v v v v 
-v v v v v w w w v v w v v v v v v v v v 
-v v w g g g g w g g w v v v v v v v v v 
-v v v g v w g w g w w v v v v v v v v v 
-v v v g v w g w g g v v v v v v v v v v 
-v v v g v v g G g g v v v v v v v v v v 
-v v v g v v g v g g w v v v v v v v v v 
-v v v g v v g v g g w v v v v v v v v v 
-v v v g v w g v g w w v v v v v v v v v 
-v v w g s w g v s s v v v v v v v v v v 
-v v w g s g g v g g v v v v v v v v v v 
-v v w g g g g w g g v v v v v v v v v v 
-v v w w w v v w w w v v v v v v v v v v 
-v v v v v v v v v v v v v v v v v v v v 
-v v v v v v v v v v v v v v v v v v v v 
-v v v v v v v v v v v v v v v v v v v v 
-v v v v v v v v v v v v v v v v v v v v 
-v v v v v v v v v v v v v v v v v v v v 
+S
+. . . . . . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . . . . . 
+. . . . w w w w . w w . . . . . . . . . 
+. . . w g g g g w g g w . . . . . . . . 
+. . . w g . . g w g w . . . . . . . . . 
+. . . w g . . g w g g w . . . . . . . . 
+. . . w g g g g g g g w . . . . . . . . 
+. . . w g . . g w g g w . . . . . . . . 
+. . . w g . . g w g g w . . . . . . . . 
+. . . w g . . g w g w . . . . . . . . . 
+. . . w g . . g w s s w . . . . . . . . 
+. . . w g . . g w g g w . . . . . . . . 
+. . . . G g g g w g g w . . . . . . . . 
+. . . . w w w w . w w . . . . . . . . . 

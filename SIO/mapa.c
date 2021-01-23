@@ -6,10 +6,11 @@
 
 #include "mapa.h"
 #include "polecenia.h"
+#include "logika.h"
 
 /*
 Legenda znaków na mapie:
-v - nieodkryte pole
+. - nieodkryte pole
 g - trawa
 s - piasek
 w - ściana
@@ -34,7 +35,7 @@ Pole *stworz(Mapa *M)
     for(i=0;i<nowe->rozmiar_x;i++)
     {
         for(j=0;j<nowe->rozmiar_y;j++)
-            nowe->index[i][j] = 'v'; 
+            nowe->index[i][j] = '.'; 
     }
     nowe->delta_x = M->current_x - C;
     nowe->delta_y = M->current_y - C;
@@ -73,11 +74,9 @@ Pole * powieksz(Pole *P){
 Pole *powieksz_E(Pole *P){
     Pole *nowe;
     nowe = (Pole*) malloc(sizeof(Pole));
-    int i, j, size_x, size_y;
-    size_x = P->rozmiar_x;
-    size_y = P->rozmiar_y;
-    nowe->rozmiar_x = 2*size_x;
-    nowe->rozmiar_y = size_y;
+    int i, j;
+    nowe->rozmiar_x = 2*P->rozmiar_x;
+    nowe->rozmiar_y = P->rozmiar_y;
     nowe->delta_x = P->delta_x;
     nowe->delta_y = P->delta_y;
 
@@ -87,13 +86,13 @@ Pole *powieksz_E(Pole *P){
 
     for(i=0;i<nowe->rozmiar_y;i++){
         for(j=0;j<nowe->rozmiar_x;j++){
-            if(i<size_y & j<size_x){
-                printf("Wypełniam wcześniej znane pole x:%d y:%d %c\n ",j,i, P->index[i][j]);
+            if(j<P->rozmiar_x){
+                //printf("Wypełniam wcześniej znane pole x:%d y:%d %c\n ",j,i, P->index[i][j]);
                 nowe->index[i][j] = P->index[i][j];
             }
             else{
-                nowe->index[i][j] = 'v';
-                printf("Wypełnilem puste pole x:%d y:%d - %c\n",j,i,nowe->index[i][j] );
+                nowe->index[i][j] = '.';
+                //printf("Wypełnilem puste pole x:%d y:%d - %c\n",j,i,nowe->index[i][j] );
             }
         }
     }
@@ -110,11 +109,9 @@ Pole *powieksz_E(Pole *P){
 Pole *powieksz_N(Pole *P){
     Pole *nowe;
     nowe = (Pole*) malloc(sizeof(Pole));
-    int i, j, size_x, size_y;
-    size_x = P->rozmiar_x;
-    size_y = P->rozmiar_y;
-    nowe->rozmiar_x = size_x;
-    nowe->rozmiar_y = 2*size_y;
+    int i, j;
+    nowe->rozmiar_x = P->rozmiar_x;
+    nowe->rozmiar_y = 2*P->rozmiar_y;
     nowe->delta_x = P->delta_x;
     nowe->delta_y = P->delta_y;
 
@@ -124,13 +121,13 @@ Pole *powieksz_N(Pole *P){
 
     for(i=0;i<nowe->rozmiar_y;i++){
         for(j=0;j<nowe->rozmiar_x;j++){
-            if(i<size_y & j<size_x){
-                printf("Wypełniam wcześniej znane pole x:%d y:%d %c\n ",j,i, P->index[i][j]);
+            if(i<P->rozmiar_y){
+                //printf("Wypełniam wcześniej znane pole x:%d y:%d %c\n ",j,i, P->index[i][j]);
                 nowe->index[i][j] = P->index[i][j];
             }
             else{
-                nowe->index[i][j] = 'v';
-                printf("Wypełnilem puste pole x:%d y:%d - %c\n",j,i,nowe->index[i][j] );
+                nowe->index[i][j] = '.';
+                //printf("Wypełnilem puste pole x:%d y:%d - %c\n",j,i,nowe->index[i][j] );
             }
         }
     }
@@ -147,12 +144,10 @@ Pole *powieksz_N(Pole *P){
 Pole *powieksz_W(Pole *P){
     Pole *nowe;
     nowe = (Pole*) malloc(sizeof(Pole));
-    int i, j, size_x, size_y;
-    size_x = P->rozmiar_x;
-    size_y = P->rozmiar_y;
-    nowe->rozmiar_x = 2*size_x;
-    nowe->rozmiar_y = size_y;
-    nowe->delta_x = P->delta_x -size_x;
+    int i, j;
+    nowe->rozmiar_x = 2*P->rozmiar_x;
+    nowe->rozmiar_y = P->rozmiar_y;
+    nowe->delta_x = P->delta_x - P->rozmiar_x;
     nowe->delta_y = P->delta_y;
 
     nowe->index = (char**) malloc(sizeof(char*) * nowe->rozmiar_y);
@@ -161,18 +156,18 @@ Pole *powieksz_W(Pole *P){
 
     for(i=0;i<nowe->rozmiar_y;i++){
         for(j=0;j<nowe->rozmiar_x;j++){
-            if(j>=size_x){
-                printf("Wypełniam wcześniej znane pole x:%d y:%d %c\n ",j,i, P->index[i][j-size_x]);
-                nowe->index[i][j] = P->index[i][j-size_x];
+            if(j>=P->rozmiar_x){
+                //printf("Wypełniam wcześniej znane pole x:%d y:%d %c\n ",j,i, P->index[i][j-size_x]);
+                nowe->index[i][j] = P->index[i][j-P->rozmiar_x];
             }
             else{
-                nowe->index[i][j] = 'v';
-                printf("Wypełnilem puste pole x:%d y:%d - %c\n",j,i,nowe->index[i][j] );
+                nowe->index[i][j] = '.';
+                //printf("Wypełnilem puste pole x:%d y:%d - %c\n",j,i,nowe->index[i][j] );
             }
         }
     }
 
-    nowe->current_x = P->current_x + size_x;
+    nowe->current_x = P->current_x + P->rozmiar_x;
     nowe->current_y = P->current_y;
     nowe->direction = P->direction;
     nowe->field_type = P->field_type;
@@ -184,13 +179,11 @@ Pole *powieksz_W(Pole *P){
 Pole *powieksz_S(Pole *P){
     Pole *nowe;
     nowe = (Pole*) malloc(sizeof(Pole));
-    int i, j, size_x, size_y;
-    size_x = P->rozmiar_x;
-    size_y = P->rozmiar_y;
-    nowe->rozmiar_x = size_x;
-    nowe->rozmiar_y = 2*size_y;
+    int i, j;
+    nowe->rozmiar_x = P->rozmiar_x;
+    nowe->rozmiar_y = 2*P->rozmiar_y;
     nowe->delta_x = P->delta_x;
-    nowe->delta_y = P->delta_y - size_y;
+    nowe->delta_y = P->delta_y - P->rozmiar_y;
 
     nowe->index = (char**) malloc(sizeof(char*) * nowe->rozmiar_y);
         for(i=0;i<nowe->rozmiar_y;i++)
@@ -198,19 +191,19 @@ Pole *powieksz_S(Pole *P){
 
     for(i=0;i<nowe->rozmiar_y;i++){
         for(j=0;j<nowe->rozmiar_x;j++){
-            if(i>=size_y){
-                printf("Wypełniam wcześniej znane pole x:%d y:%d %c\n ",j,i, P->index[i-size_y][j]);
-                nowe->index[i][j] = P->index[i-size_y][j];
+            if(i>=P->rozmiar_y){
+                //printf("Wypełniam wcześniej znane pole x:%d y:%d %c\n ",j,i, P->index[i-size_y][j]);
+                nowe->index[i][j] = P->index[i-P->rozmiar_y][j];
             }
             else{
-                nowe->index[i][j] = 'v';
-                printf("Wypełnilem puste pole x:%d y:%d - %c\n",j,i,nowe->index[i][j] );
+                nowe->index[i][j] = '.';
+                //printf("Wypełnilem puste pole x:%d y:%d - %c\n",j,i,nowe->index[i][j] );
             }
         }
     }
 
     nowe->current_x = P->current_x;
-    nowe->current_y = P->current_y + size_y;
+    nowe->current_y = P->current_y + P->rozmiar_y;
     nowe->direction = P->direction;
     nowe->field_type = P->field_type;
     nowe->field_bonus = P->field_bonus;
@@ -247,11 +240,11 @@ Pole *update_move(Pole *P, Mapa *M){
     Y = M->current_y - P->delta_y;
     x = P->current_x;//Pole na którym wcześniej stał czołg
     y = P->current_y;
-    printf("Poprzednie pole: x:%d y:%d to %s\n", x, y, old_field);
-    printf("Nowe pole: x:%d y:%d to %s\n", X, Y, new_field);
+    //printf("Poprzednie pole: x:%d y:%d to %s\n", x, y, old_field);
+    //printf("Nowe pole: x:%d y:%d to %s\n", X, Y, new_field);
 
     if(X == x & Y == y){//Tank move failed
-        printf("Czołg przywalił w ścianę\n");
+        //printf("Czołg przywalił w ścianę\n");
         if(strcmp(nowe->direction, "N")==0){
             nowe->index[Y+1][X] = 'w';
         }
@@ -273,21 +266,21 @@ Pole *update_move(Pole *P, Mapa *M){
 
         if(strcmp(new_field, "grass") == 0){
             nowe->index[Y][X] = 'G';
-            printf("Pole x:%d y:%d to teraz G\n", X, Y);
+            //printf("Pole x:%d y:%d to teraz G\n", X, Y);
             nowe->field_type = new_field;
         }
         else if(strcmp(new_field, "sand") == 0){
             nowe->index[Y][X] = 'S';
-            printf("Pole x:%d y:%d to teraz S\n", X, Y);
+            //printf("Pole x:%d y:%d to teraz S\n", X, Y);
             nowe->field_type = new_field;
         }
         if(strcmp(old_field, "grass") == 0){
             nowe->index[y][x] = 'g';
-            printf("Pole x:%d y:%d zamioniono z G na g\n", x, y);
+            //printf("Pole x:%d y:%d zamioniono z G na g\n", x, y);
         }
         else if(strcmp(old_field, "sand") == 0){
             nowe->index[y][x] = 's';
-            printf("Pole x:%d y:%d zamioniono z S na s\n", x, y);
+            //printf("Pole x:%d y:%d zamioniono z S na s\n", x, y);
         }
     }
     return nowe;
@@ -303,7 +296,7 @@ Pole *update_explore(Pole *P, Mapa_explore *ME){
         
         x = ME->x[i] - P->delta_x;
         y = ME->y[i] - P->delta_y;
-        printf("%d pole przede mną to x:%d y:%d typ: %s\n",i+1, x, y, ME->type[i]);
+        //printf("%d pole przede mną to x:%d y:%d typ: %s\n",i+1, x, y, ME->type[i]);
         if(strcmp(field_type, "grass") == 0)
             nowe->index[y][x] = 'g';
         else if(strcmp(field_type, "sand") == 0)
