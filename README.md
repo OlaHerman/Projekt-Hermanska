@@ -25,7 +25,7 @@ R - right - obraca czołg w prawo,
 E - explore - odkrywa 3 pola w prostopadłej linii do kierunku czołgu.
 
 Aby uruchomić algorytm, który sam będzie odkrywał mapę należy wpisać "./projekt SIOv2.0" lub "make test-SIOv2.0".
-Dzięki niemu czołg będzie najpier odkrywał obwód mapy i poruszał sie wzdłuż jej krawędzi. Po odkryciu jej nasz czołg będzie znał rozmiary mapy i na tej podstawie będzie wiedział czy zostały jakieś nieodkryte pola w jej środku. Jeśli okaże się że jakieś pola pozostały nieodkryte, nasz czołg będzie jezdził w poszukiwaniu tych pól.
+Dzięki niemu czołg będzie najpierw odkrywał obwód mapy i poruszał sie wzdłuż jej krawędzi. Po odkryciu jej nasz czołg będzie znał rozmiary mapy i na tej podstawie będzie wiedział czy zostały jakieś nieodkryte pola w jej środku. Jeśli okaże się że jakieś pola pozostały nieodkryte, nasz czołg będzie jezdził w poszukiwaniu tych pól.
 
 
 
