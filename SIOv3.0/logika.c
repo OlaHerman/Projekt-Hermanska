@@ -39,7 +39,6 @@ Pole *prawo_ruch(Pole *SIO, Dane *M, Dane2 *ME, int x, int y)
 
   if (x == nowe->zajety_x & y == nowe->zajety_y)
     return nowe;
-  
 
   if (X != nowe->zajety_x || Y != nowe->zajety_y) //Jeśli czołg się ruszył
   {
@@ -91,7 +90,7 @@ Pole *lewo_ruch(Pole *SIO, Dane *M, Dane2 *ME, int x, int y)
   }
 
   else //Jeśli czołg został w miejscu
-  { 
+  {
     nowe = lewo_ruch(nowe, M, ME, x, y);
     return nowe;
   }
@@ -118,7 +117,6 @@ Pole *do_przodu(Pole *SIO, Dane *M, Dane2 *ME)
 
   if (nowe->zajety_x != x || nowe->zajety_y != y) //Jeśli czołg się ruszył
     nowe = do_przodu(nowe, M, ME);
-  
 
   return nowe;
 }
@@ -136,64 +134,75 @@ Pole *obrot_180(Pole *SIO, Dane *M, Dane2 *ME)
   return nowe;
 }
 
-Rozmiar *znajdz_zewnetrzny_mur(Pole *P){
-  int i, j, m, n;
+Rozmiar *znajdz_zewnetrzny_mur(Pole *P)
+{
+  int i, j, m, n, sprawdz_n;
   Rozmiar *r;
-  r = (Rozmiar*) malloc(sizeof(Rozmiar));
+  r = (Rozmiar *)malloc(sizeof(Rozmiar));
 
-  for(i=0; i<P->rozmiar_y;i++){
-    for(j=0;j<P->rozmiar_x;j++){
-      if(P->index[P->rozmiar_y - i - 1][j] == 'w'){
+  for (i = 0; i < P->rozmiar_y; i++)
+  {
+    for (j = 0; j < P->rozmiar_x; j++)
+    {
+      if (P->index[P->rozmiar_y - i - 1][j] == 'w')
+      {
         m = P->rozmiar_y - i - 1;
         n = j;
-        while(P->index[m][n+1] == 'w' || n + 1 == P->rozmiar_x - 1)
+        while (P->index[m][n + 1] == 'w' || n + 1 == P->rozmiar_x - 1)
           n++;
         r->X = n - j + 1;
-        while(P->index[m - 1][n] == 'w'){
+        sprawdz_n = n;
+        while (P->index[m - 1][n] == 'w')
+        {
           m--;
-          if(m == 0)
-          break;
+          if (m == 0)
+            break;
         }
         r->Y = P->rozmiar_y - i - 1 - m + 1;
-        while(P->index[m][n-1] == 'w'){
+        while (P->index[m][n - 1] == 'w')
+        {
           n--;
-          if(n == 0)
+          if (n == 0)
             break;
         }
-        while(P->index[m + 1][n] == 'w'){
+        while (P->index[m + 1][n] == 'w')
+        {
           m++;
-          if(m == P->rozmiar_y -1)
+          if (m == P->rozmiar_y - 1)
             break;
         }
-        if(m == P->rozmiar_y - i - 1 & n == j)
+        if (m == P->rozmiar_y - i - 1 & n == j)
+        {
+          if (sprawdz_n == n)
+            return NULL;
           return r;
-        
-        return NULL;
         }
-        else if(P->index[P->rozmiar_y - i - 1][j] == 'g' || P->index[P->rozmiar_y - i - 1][j] == 's' || P->index[P->rozmiar_y - i - 1][j] == 'S' || P->index[P->rozmiar_y - i - 1][j] == 'G' )
-          return NULL;
+
+        return NULL;
       }
+      else if (P->index[P->rozmiar_y - i - 1][j] == 'g' || P->index[P->rozmiar_y - i - 1][j] == 's' || P->index[P->rozmiar_y - i - 1][j] == 'S' || P->index[P->rozmiar_y - i - 1][j] == 'G')
+        return NULL;
     }
+  }
   return NULL;
 }
 
-int sprawdz_postep(Pole *P, Rozmiar *r){
+int sprawdz_postep(Pole *P, Rozmiar *r)
+{
   int i, j, a;
   a = 0;
-  if(r == NULL)
+  if (r == NULL)
     return 0;
 
-  for(i=0; i<P->rozmiar_y;i++)
-    for(j=0;j<P->rozmiar_x;j++)
-      if(P->index[i][j] != '.')
+  for (i = 0; i < P->rozmiar_y; i++)
+    for (j = 0; j < P->rozmiar_x; j++)
+      if (P->index[i][j] != '.')
         a++;
-  if(a == r->X*r->Y) //Cała mapa odkryta
+  if (a == r->X * r->Y) //Cała mapa odkryta
     return 1;
-  
+
   return 0;
 }
-
-
 
 Pole *SIOv2_0(Pole *P, Dane *M, Dane2 *ME)
 {
@@ -207,9 +216,9 @@ Pole *SIOv2_0(Pole *P, Dane *M, Dane2 *ME)
   y = SIO->zajety_y;
 
   SIO = lewo_ruch(SIO, M, ME, x, y);
-  
+
   SIO = do_przodu(SIO, M, ME);
-  
+
   SIO = obrot_180(SIO, M, ME);
 
   x = SIO->zajety_x;
@@ -222,7 +231,8 @@ Pole *SIOv2_0(Pole *P, Dane *M, Dane2 *ME)
   return SIO;
 }
 
-Pole *SIOv3_0(Pole *P, Dane *M, Dane2 *ME){
+Pole *SIOv3_0(Pole *P, Dane *M, Dane2 *ME)
+{
   int x, y;
   int ruch_poczatkowy, ruch_koncowy;
   Pole *SIO;
@@ -230,7 +240,7 @@ Pole *SIOv3_0(Pole *P, Dane *M, Dane2 *ME){
   Rozmiar *r = NULL;
   ruch_poczatkowy = SIO->krok;
 
-  while(sprawdz_postep(SIO, r) != 1)
+  while (sprawdz_postep(SIO, r) != 1)
   {
     SIO = do_przodu(SIO, M, ME);
 
@@ -241,23 +251,13 @@ Pole *SIOv3_0(Pole *P, Dane *M, Dane2 *ME){
 
     r = znajdz_zewnetrzny_mur(SIO);
 
-    if(r != NULL)
-      break;
-  
-  SIO = do_przodu(SIO, M, ME);
-  
-  SIO = obrot_180(SIO, M, ME);
+    SIO = do_przodu(SIO, M, ME);
 
-  SIO = ruch(SIO, M);
-  SIO = prawo(SIO, M);
-  SIO = ruch(SIO, M);
-  SIO = ruch(SIO, M);
-  SIO = prawo(SIO, M);
+    SIO = obrot_180(SIO, M, ME);
   }
+
   ruch_koncowy = SIO->krok;
-
-
-  printf("Odkryto całą mapę w %d ruchach.\n", ruch_koncowy - ruch_poczatkowy);
+  printf("Odkryto całą mapę w %d krokach.\n", ruch_koncowy - ruch_poczatkowy);
 
   return SIO;
 }

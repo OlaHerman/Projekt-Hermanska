@@ -58,7 +58,6 @@ typedef struct _Rozmiar
 
 } Rozmiar;
 
-
 Pole *stworz(Dane *M);
 Pole *powieksz(Pole *P);
 int sprawdz_granice(Pole *P);

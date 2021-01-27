@@ -57,13 +57,13 @@ char *make_request(char *url)
             fprintf(stderr, "Błąd! curl_easy_perform() niepowodzenie: %s\n", curl_easy_strerror(res));
         else
             return chunk.response;
-        
+
         curl_easy_cleanup(curl);
     }
     return 0;
 }
 
-Pole * info(Dane *M)
+Pole *info(Dane *M)
 {
     Pole *nowe;
     char *url1 = "http://edi.iem.pw.edu.pl:30000/worlds/api/v1/worlds/info/qwerty_7";
@@ -77,7 +77,7 @@ Pole * info(Dane *M)
     return nowe;
 }
 
-Pole * ruch(Pole *P, Dane *M)
+Pole *ruch(Pole *P, Dane *M)
 {
     Pole *nowe;
     char *url1 = "http://edi.iem.pw.edu.pl:30000/worlds/api/v1/worlds/move/qwerty_7";
@@ -91,21 +91,21 @@ Pole * ruch(Pole *P, Dane *M)
     return nowe;
 }
 
-Pole * odkryj(Pole *P, Dane2 *ME)
+Pole *odkryj(Pole *P, Dane2 *ME)
 {
     Pole *nowe;
     char *url1 = "http://edi.iem.pw.edu.pl:30000/worlds/api/v1/worlds/explore/qwerty_7";
     char *json_explore;
     json_explore = make_request(url1);
     ME = wczytaj_json_explore(ME, json_explore);
-    nowe = aktualizuj_odkryj(P,ME);
+    nowe = aktualizuj_odkryj(P, ME);
     zwolnij_dane2(ME);
     free(json_explore);
 
     return nowe;
 }
 
-Pole * prawo(Pole *P, Dane *M)
+Pole *prawo(Pole *P, Dane *M)
 {
     Pole *nowe;
     char *url1 = "http://edi.iem.pw.edu.pl:30000/worlds/api/v1/worlds/rotate/qwerty_7/right";
@@ -119,7 +119,7 @@ Pole * prawo(Pole *P, Dane *M)
     return nowe;
 }
 
-Pole * lewo(Pole *P, Dane *M)
+Pole *lewo(Pole *P, Dane *M)
 {
     Pole *nowe;
     char *url1 = "http://edi.iem.pw.edu.pl:30000/worlds/api/v1/worlds/rotate/qwerty_7/left";

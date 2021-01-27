@@ -29,7 +29,7 @@ test-powiekszN: all
 	./projekt L L M M M L L M M M
 
 test-memory: all
-	valgrind ./projekt L
+	valgrind --leak-check=full ./projekt L 
 
 test-move: all
 	./projekt move

@@ -8,18 +8,7 @@
 #include "polecenia.h"
 #include "logika.h"
 
-/*
-Legenda znaków na mapie:
-. - nieodkryte pole
-g - trawa
-s - piasek
-w - ściana
-
-G - trawa zajęta przez czołg
-S - piasek zajęty przez czołg
-*/
-
-Pole *stworz(Dane *M)
+Pole *stworz(Dane *M) //Tworzy i przydziela pamięć dla struktury Pole
 {
     int i, j;
     Pole *nowe;
@@ -128,7 +117,7 @@ Pole *powieksz_N(Pole *P)
         {
             if (i < P->rozmiar_y)
                 nowe->index[i][j] = P->index[i][j];
-            
+
             else
                 nowe->index[i][j] = '.';
         }
@@ -164,7 +153,7 @@ Pole *powieksz_W(Pole *P)
         {
             if (j >= P->rozmiar_x)
                 nowe->index[i][j] = P->index[i][j - P->rozmiar_x];
-            
+
             else
                 nowe->index[i][j] = '.';
         }
@@ -200,7 +189,7 @@ Pole *powieksz_S(Pole *P)
         {
             if (i >= P->rozmiar_y)
                 nowe->index[i][j] = P->index[i - P->rozmiar_y][j];
-            
+
             else
                 nowe->index[i][j] = '.';
         }
@@ -249,7 +238,7 @@ Pole *aktualizuj_ruch(Pole *P, Dane *M)
     y = P->zajety_y;
     nowe->krok = M->step;
 
-    if (X == x & Y == y) //Tank move failed
+    if (X == x & Y == y) //Czołg się nie ruszył
     {
         if (strcmp(nowe->kierunek, "N") == 0)
         {
@@ -269,7 +258,7 @@ Pole *aktualizuj_ruch(Pole *P, Dane *M)
         }
     }
 
-    else if (X != x || Y != y) //Tank move successful
+    else if (X != x || Y != y) //Czołg się ruszył
     {
         nowe->zajety_y = Y;
         nowe->zajety_x = X;
@@ -287,10 +276,9 @@ Pole *aktualizuj_ruch(Pole *P, Dane *M)
         }
         if (strcmp(stare_pole, "grass") == 0)
             nowe->index[y][x] = 'g';
-        
+
         else if (strcmp(stare_pole, "sand") == 0)
             nowe->index[y][x] = 's';
-        
     }
     return nowe;
 }

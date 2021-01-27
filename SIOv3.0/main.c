@@ -47,11 +47,10 @@ int main(char argc, char **argv)
     }
     else if (strcmp(argv[i], "SIOv2.0") == 0)
       P = SIOv2_0(P, M, ME);
-    else if(strcmp(argv[i], "SIOv3.0") == 0)
+    else if (strcmp(argv[i], "SIOv3.0") == 0)
       P = SIOv3_0(P, M, ME);
     if (sprawdz_granice(P) == 1)
       P = powieksz(P);
-
   }
   zapisz(P, mapa);
   zwolnij_pole(P);
