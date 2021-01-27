@@ -1,7 +1,0 @@
-5 5
-E
-v v v v v 
-v v v v v 
-v v G v v 
-v v v v v 
-v v v v v 
